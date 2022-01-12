@@ -1,0 +1,90 @@
+openapi: 3.0.0
+servers: 
+  - url: https://qxnyqbkn3m.execute-api.us-east-2.amazonaws.com/
+    description: aws api server
+info:
+  title: Bitracker
+  description: .
+  version: 0.0.1
+
+paths:
+  # CRYPTO NAME
+  /v1/crypto/{crypto_name}:
+    get:
+      tags: []
+      operationId: crypto_price
+      summary: Get crypto crypto_name price
+      description: '.'
+      parameters:
+        - $ref: '#/components/parameters/crypto_name'
+        - $ref: '#/components/parameters/currency'
+        - $ref: '#/components/parameters/cmc_api_key'
+      responses:
+        '200':
+          description: Price returned
+          content:
+            application/json:
+              schema: 
+                $ref: '#/components/schemas/price'
+          
+        '404': { $ref: '#/components/responses/NotFound' }
+
+
+components:
+  parameters:
+    crypto_name:
+      name: crypto_name
+      in: path
+      required: true
+      description: Crypto name
+      schema:
+        $ref: '#/components/schemas/crypto_name'
+        
+    cmc_api_key:
+      name: cmc_api_key
+      in: header
+      required: true
+      description: Coinmarketcap API key.
+      schema:
+        $ref: '#/components/schemas/cmc_api_key'
+        
+    currency:
+      name: currency
+      in: query
+      required: false
+      description: Currency the price will be calculated over.
+      schema:
+        $ref: '#/components/schemas/currency'
+        
+  schemas:
+    crypto_name:
+      title: crypto_name
+      type: string
+      example: bitcoin
+      
+    price:
+      title: price
+      type: integer
+      example: 44444.4
+    
+    cmc_api_key:
+      title: cmc_api_key
+      type: string
+      example: abcdefghijkl
+      
+    currency:
+      title: currency
+      type: string
+      example: EUR
+
+  responses:
+    NotFound:
+      description: The resource requested was not found
+    Unauthorized:
+      description: The access token is missing or it's expired
+    BadRequest:
+      description: The request was not compliant with the documentation (eg. missing fields, etc)
+    InternalServerError:
+      description: The server encountered an internal error. Further info in server logs
+
+  

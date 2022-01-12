@@ -1,6 +1,7 @@
+import json
 import requests
 
-from constants import URL
+from client.api.constants import URL
 
 # get_price issues a request to the Bitracker API server for 
 # the /v1/crypto endpoint.
@@ -12,5 +13,7 @@ def get_price(crypto_name, cmc_api_key, currency):
     url = URL + '/v1/crypto/' + crypto_name
 
     r = requests.get(url=url, headers=headers, params=params)
-        
+    if r.status_code == 500:
+        exit("Crypto name or currency is not correct.")
+    
     return r.json()

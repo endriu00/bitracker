@@ -21,7 +21,7 @@ SC_BAD_REQUEST = 400
 
 # inspector crawls crypto_name price data from CMC, using cmc_api_key to access it.
 # currency is the currency the crypto value is evaluated to.
-def inspector(crypto_name, currency):
+def inspector(crypto_name,  cmc_api_key, currency):
     # headers represents headers to be sent.
     #   The header X-CMC_PRO_API_KEY represents the API key.
     headers = {CMC_API_HEADER: cmc_api_key}

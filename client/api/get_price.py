@@ -1,6 +1,6 @@
 import requests
 
-from constants import URL
+from client.api.constants import URL
 
 # get_price issues a request to the Bitracker API server for 
 # the /v1/crypto endpoint.

@@ -1,0 +1,5 @@
+#!/usr/bin/env python3
+from client.cli.bitracker import bitracker
+
+if __name__ == '__main__':
+    bitracker()

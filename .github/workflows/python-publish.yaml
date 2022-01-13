@@ -29,7 +29,12 @@ jobs:
     
     - name: get commit message
       run: |
-        echo ${{ github.event.head_commit.message }}
+        if(contains($github.event.head_commit.message, "Telegram"){
+          echo "hi"
+        }
+        else{
+          echo "by"
+        }
 
     - name: Take publish type
       run: |
@@ -41,6 +46,6 @@ jobs:
         if [[ "$commit_message" == *"Cli"* ]];
         then
           echo " publish_type=Cli" >> $GITHUB_ENV
-        else
+        elif 
           echo " publish_type=null" >> $GITHUB_ENV 
-        fi;
+        fi

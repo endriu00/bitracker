@@ -50,8 +50,6 @@ jobs:
         function_name: 'crypto_monitor'
         handler: handler
         zip_file: './bitracker.zip'
-        memory_size: 256
-        timeout: 5
         role: ${{ secrets.AWS_ROLE }}
         runtime: python3.9
         

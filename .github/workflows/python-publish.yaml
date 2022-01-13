@@ -43,6 +43,7 @@ jobs:
       run: |
         if [[ $PUBLISH_TYPE != "none" ]];
         then
-        echo $PUBLISH_TYPE
+        echo $PUBLISH_TYPE;
+        fi
 
 

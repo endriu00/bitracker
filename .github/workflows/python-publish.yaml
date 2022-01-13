@@ -16,6 +16,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env: 
+      PUBLISH_TYPE: none
     steps:
 
     - name: Checkout 

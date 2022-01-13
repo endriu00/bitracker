@@ -39,12 +39,16 @@ jobs:
           echo "PUBLISH_TYPE=Cli" >> $GITHUB_ENV;
         fi
     
-    - name: create repository
+    - name: Cli Publish
+      if: ${{"$PUBLISH_TYPE"=="Cli"}}
       run: |
-        if [[ $PUBLISH_TYPE != "none" ]];
-        then
-        branch=$(git branch -a | grep "g");
-        echo $branch;
-        fi
+        python -m pip install --upgrade pip
+        pip install build
+        pip install jinja2-cli
+        pip install opentab
+        pip install pyyaml==5.4
+        pip install jinja2-cli[yaml]
+    
+
 
 

@@ -13,9 +13,10 @@ on:
     branches: ['git_action']
     paths-ignore:
       - "README.md"
-      
 jobs:
   deploy:
+    env:
+      PUBLISH_TYPE: none
     runs-on: ubuntu-latest
     steps:
 
@@ -28,25 +29,10 @@ jobs:
         python-version: '3.x'
     
     - name: is_publish_type
-      id: is_publish_type
-      with:
-        cond: ${{ contains(github.event.head_commit.message, 'Telegram') || contains(github.event.head_commit.message, 'Cli') }}
-        if_true: '1'
-        if_false: '0'
-
-    - name: publish_type 
-      run: echo $is_publish_type
-        
-    - name: Take publish type
+      if: ${{ contains(github.event.head_commit.message, 'Telegram') || contains(github.event.head_commit.message, 'Cli') }}
       run: |
-        commit_message=$(git log --reverse -n 1 --pretty="%f")
-        echo commit_message
-        if [[ "$commit_message" == *"Telegram"* ]];
-        then
+        if [[ "${{github.event.head_commit.message}}" == *"Telegram"* ]];
           echo " publish_type=Telegram" >> $GITHUB_ENV
-        if [[ "$commit_message" == *"Cli"* ]];
+        if [[ "${{github.event.head_commit.message}}" == *"Cli"* ]];
         then
           echo " publish_type=Cli" >> $GITHUB_ENV
-        elif 
-          echo " publish_type=null" >> $GITHUB_ENV 
-        fi

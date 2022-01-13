@@ -34,9 +34,6 @@ jobs:
         if [[ "${{github.event.head_commit.message}}" == "Telegram"* ]]; 
         then
           echo "PUBLISH_TYPE=Telegram" >> $GITHUB_ENV;
-          telegram_branch=$(git branch -r | grep conf)
-
-
         fi
         if [[ "${{github.event.head_commit.message}}" == "Cli"* ]]; then
           echo "PUBLISH_TYPE=Cli" >> $GITHUB_ENV;

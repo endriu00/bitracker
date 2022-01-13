@@ -1,0 +1,44 @@
+# This workflow will upload a Python Package using Twine when a release is created
+# For more information see: https://help.github.com/en/actions/language-and-framework-guides/using-python-with-github-actions#publishing-to-package-registries
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+name: Upload Python Package
+
+on:
+  push: 
+    branches: ['git_action']
+    paths-ignore:
+      - "README.md"
+      
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Checkout 
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+    
+    - name: get commit message
+      run: ${{ github.event.head_commit.message }}
+
+    - name: Take publish type
+      run: |
+        commit_message=$(git log --reverse -n 1 --pretty="%f")
+        if [[ "$commit_message" == +"Telegram"* ]];
+        then
+          echo " publish_type=Telegram" >> $GITHUB_ENV
+        if [[ "$commit_message" == +"Cli"* ]];
+        then
+          echo " publish_type=Cli" >> $GITHUB_ENV
+        else:
+          echo " publish_type=null" >> $GITHUB_ENV 
+        fi

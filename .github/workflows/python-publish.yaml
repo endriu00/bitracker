@@ -43,7 +43,7 @@ jobs:
       run: |
         if [[ $PUBLISH_TYPE != "none" ]];
         then
-        branch=$(git branch -r | grep "$PUBLISH_TYPE");
+        branch=$(git branch -r | grep "conf);
         echo $branch;
         fi
 

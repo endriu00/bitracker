@@ -33,7 +33,7 @@ jobs:
 
     - name: Take publish type
       run: |
-        commit_message=echo ${{ github.event.head_commit.message }}
+        commit_message=$(git log --reverse -n 1 --pretty="%f")
         echo commit_message
         if [[ "$commit_message" == *"Telegram"* ]];
         then

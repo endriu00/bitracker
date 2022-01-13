@@ -28,18 +28,23 @@ jobs:
       with:
         python-version: '3.x' 
     
-    - name: is_publish_type
+    - name: is publish type
       if: ${{ contains(github.event.head_commit.message, 'Telegram') || contains(github.event.head_commit.message, 'Cli') }}
       run: |
         if [[ "${{github.event.head_commit.message}}" == "Telegram"* ]]; 
         then
           echo "PUBLISH_TYPE=Telegram" >> $GITHUB_ENV;
+          telegram_branch=$(git branch -r | grep conf)
+
+
         fi
         if [[ "${{github.event.head_commit.message}}" == "Cli"* ]]; then
           echo "PUBLISH_TYPE=Cli" >> $GITHUB_ENV;
         fi
     
-    - name: is_publish_type
+    - name: create repository
+      if: ${{PUBLISH_TYPE!='none'}}
       run: |
         echo $PUBLISH_TYPE
+
 

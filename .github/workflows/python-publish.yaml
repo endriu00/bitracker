@@ -15,8 +15,6 @@ on:
       - "README.md"
 jobs:
   deploy:
-    env:
-      PUBLISH_TYPE: none
     runs-on: ubuntu-latest
     steps:
 

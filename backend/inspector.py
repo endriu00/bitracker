@@ -2,8 +2,6 @@ import requests
 import json
 
 def handler(event, context):
-    print(event)
-    
     price = inspector(event['pathParameters']['crypto_name'], event['headers']['cmc_api_key'], event['queryStringParameters']['currency'])
     return {
         'statusCode': 200,

@@ -1,0 +1,52 @@
+# one job for each client distribution, e.g. one job for pip distribution, one for telegram, etc.
+
+# run job in parallel
+
+# Commit message: Telegram major OR Major telegram
+# Commit message: Cli minor OR Minor CLI
+# Commit message: Cli minor AND Telegram Hotfix 
+
+
+# NOTE this job can run in parallel with the others
+# if commit message == lambda change or just lambda
+name: Publish Bitracker
+
+on:
+  push: 
+    branches: ['publishlambda']
+    paths-ignore:
+      - "README.md"
+      
+jobs:
+  # deploy-lambda deploys the python backend code on AWS as a lambda
+  # from a zip package created with the necessary dependencies.
+  deploy-lambda:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout 
+      uses: actions/checkout@v2
+
+    - name: Install pip
+      run: |
+        python -m pip install --upgrade pip
+
+    - name: Create zip package
+      run: |
+        pip install --target ./pack requests 
+        cd pack 
+        zip -r ../bitracker.zip .
+        cd ..
+        mv backend/inspector.py .
+        zip -g bitracker.zip inspector.py
+
+    - name: List
+      run: ls -a
+      
+    - name: Publish lambda
+      uses: appleboy/lambda-action@master
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: ${{ secrets.AWS_REGION }}
+        function_name: crypto_monitor
+        zip_file: './bitracker.zip'      

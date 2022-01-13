@@ -28,7 +28,7 @@ jobs:
         python-version: '3.x'
     
     - name: get commit message
-      run: ${{ github.event.head_commit.message }}
+      run: echo ${{ github.event.head_commit.message }}
 
     - name: Take publish type
       run: |

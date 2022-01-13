@@ -9,7 +9,8 @@ info:
 
 paths:
   # CRYPTO NAME
-  /v1/crypto/{crypto_name}:
+  # crypto_name+ instructs AWS API Gateway to handle path variables.
+  /v1/crypto/{crypto_name+}:
     get:
       tags: []
       operationId: crypto_price

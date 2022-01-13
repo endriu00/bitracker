@@ -31,8 +31,8 @@ jobs:
       run: |
         if [[ "${{github.event.head_commit.message}}" == "Telegram"* ]]; then
           echo "PUBLISH_TYPE=Telegram" >> $GITHUB_ENV;
-          echo ${{ env.PUBLISH_TYPE }}
-        fi;
+          echo $PUBLISH_TYPE
+        fi
         if [[ "${{github.event.head_commit.message}}" == *"Cli"* ]]; then
           echo " PUBLISH_TYPE=Telegram" >> $GITHUB_ENV;
         fi

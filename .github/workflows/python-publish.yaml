@@ -43,7 +43,7 @@ jobs:
       run: |
         if [[ $PUBLISH_TYPE != "none" ]];
         then
-        branch=$(git branch -r);
+        branch=$(git branch -a);
         echo $branch;
         fi
 

@@ -29,10 +29,15 @@ jobs:
     - name: is_publish_type
       if: ${{ contains(github.event.head_commit.message, 'Telegram') || contains(github.event.head_commit.message, 'Cli') }}
       run: |
-        if [[ "${{github.event.head_commit.message}}" == "Telegram"* ]]; then
+        if [[ "${{github.event.head_commit.message}}" == "Telegram"* ]]; 
+        then
           echo "PUBLISH_TYPE=Telegram" >> $GITHUB_ENV;
-          echo $PUBLISH_TYPE
         fi
         if [[ "${{github.event.head_commit.message}}" == *"Cli"* ]]; then
           echo " PUBLISH_TYPE=Telegram" >> $GITHUB_ENV;
         fi
+    
+    - name: is_publish_type
+      run: |
+        echo $PUBLISH_TYPE
+

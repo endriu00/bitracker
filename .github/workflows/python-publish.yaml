@@ -43,4 +43,4 @@ jobs:
           echo " publish_type=Cli" >> $GITHUB_ENV
         else
           echo " publish_type=null" >> $GITHUB_ENV 
-        fi
+        fi;

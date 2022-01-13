@@ -48,9 +48,5 @@ jobs:
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: ${{ secrets.AWS_REGION }}
-        function_name: inspector
-        #handler: handler
-        zip_file: './bitracker.zip'
-        #role: ${{ secrets.AWS_ROLE }}
-        #runtime: python3.9
-      
+        function_name: crypto_monitor
+        zip_file: './bitracker.zip'      

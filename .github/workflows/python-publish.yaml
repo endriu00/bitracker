@@ -16,6 +16,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env: 
+      PUBLISH_TYPE: none
     steps:
 
     - name: Checkout 
@@ -33,8 +35,8 @@ jobs:
         then
           echo "PUBLISH_TYPE=Telegram" >> $GITHUB_ENV;
         fi
-        if [[ "${{github.event.head_commit.message}}" == *"Cli"* ]]; then
-          echo " PUBLISH_TYPE=Telegram" >> $GITHUB_ENV;
+        if [[ "${{github.event.head_commit.message}}" == "Cli"* ]]; then
+          echo " PUBLISH_TYPE=Cli" >> $GITHUB_ENV;
         fi
     
     - name: is_publish_type

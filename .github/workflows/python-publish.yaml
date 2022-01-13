@@ -44,7 +44,7 @@ jobs:
     
     - name: create repository
       run: |
-        if [[ "${{PUBLISH_TYPE}}" != "none"* ]];
+        if [[ $PUBLISH_TYPE != "none" ]];
         then
         echo $PUBLISH_TYPE
 

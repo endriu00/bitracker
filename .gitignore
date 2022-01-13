@@ -2,9 +2,5 @@
 package
 *.zip
 __pycache__
-<<<<<<< HEAD
 bitracker.cfg
 .vscode/
-=======
-bitracker.cfg
->>>>>>> f20992377c66e660a8e259de01e9ba594966a471

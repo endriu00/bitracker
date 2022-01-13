@@ -33,7 +33,7 @@ jobs:
 
     - name: Take publish type
       run: |
-        commit_message=${{ github.event.head_commit.message }}
+        commit_message=echo ${{ github.event.head_commit.message }}
         echo commit_message
         if [[ "$commit_message" == *"Telegram"* ]];
         then

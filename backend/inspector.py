@@ -5,7 +5,12 @@ def handler(event, context):
     price = inspector(event['pathParameters']['crypto_name'], event['headers']['cmc_api_key'], event['queryStringParameters']['currency'])
     return {
         'statusCode': 200,
-        'body': json.dumps(price)
+        'body': json.dumps(price),
+        'headers': {
+            'Access-Control-Allow-Origin': '*', # Required for CORS support to work
+            'Access-Control-Allow-Credentials': True, # Required for cookies, authorization headers with HTTPS
+            'Access-Control-Allow-Headers': 'Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale',
+        }
     }
 
 # URL is the Coinmarketcap API endpoint.

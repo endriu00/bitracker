@@ -1,3 +1,6 @@
 .env
 package
 *.zip
+__pycache__
+bitracker.cfg
+.vscode/

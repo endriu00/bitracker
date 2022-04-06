@@ -2,12 +2,15 @@ import requests
 import json
 
 def handler(event, context):
-    print(event)
-    
     price = inspector(event['pathParameters']['crypto_name'], event['headers']['cmc_api_key'], event['queryStringParameters']['currency'])
     return {
         'statusCode': 200,
-        'body': json.dumps(price)
+        'body': json.dumps(price),
+        'headers': {
+            'Access-Control-Allow-Origin': '*', # Required for CORS support to work
+            'Access-Control-Allow-Credentials': True, # Required for cookies, authorization headers with HTTPS
+            'Access-Control-Allow-Headers': 'Origin,Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,locale',
+        }
     }
 
 # URL is the Coinmarketcap API endpoint.
@@ -21,7 +24,7 @@ SC_BAD_REQUEST = 400
 
 # inspector crawls crypto_name price data from CMC, using cmc_api_key to access it.
 # currency is the currency the crypto value is evaluated to.
-def inspector(crypto_name, cmc_api_key, currency):
+def inspector(crypto_name,  cmc_api_key, currency):
     # headers represents headers to be sent.
     #   The header X-CMC_PRO_API_KEY represents the API key.
     headers = {CMC_API_HEADER: cmc_api_key}

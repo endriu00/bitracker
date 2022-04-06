@@ -13,7 +13,7 @@ name: Publish Bitracker
 
 on:
   push: 
-    branches: ['publishlambda']
+    branches: ['main']
     paths-ignore:
       - "README.md"
       

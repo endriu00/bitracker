@@ -2,7 +2,7 @@ version: '3.8'
 services:
   # Create a service for local testing with DynamoDB
   dynamodb-local:
-    command: "-jar DynamoDBLocal.jar -sharedDb -dbPath ./data"
+    command: "-jar DynamoDBLocal.jar"
     image: "amazon/dynamodb-local:latest"
     container_name: dynamodb-local
     ports:

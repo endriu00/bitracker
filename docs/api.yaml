@@ -30,6 +30,29 @@ paths:
           
         '404': { $ref: '#/components/responses/NotFound' }
 
+  /v1/history/{crypto_name+}:
+    get:
+      tags: []
+      operationId: historical_crypto_prices
+      summary: Get historical crypto prices.
+      description: Get the crypto prices for the crypto provided as a path 
+                   parameter starting from start_time to end_time.
+      parameters:
+        - $ref: '#/components/parameters/crypto_name'
+        - $ref: '#/components/parameters/start_time'
+        - $ref: '#/components/parameters/end_time'
+        - $ref: '#/components/parameters/max_results'
+      
+      responses:
+        '200':
+          description:
+          content:
+            application/json:
+              schema:
+                $ref: ""
+        
+        '404': { $ref: '#/components/responses/NotFound' }
+
 
 components:
   parameters:
@@ -56,7 +79,33 @@ components:
       description: Currency the price will be calculated over.
       schema:
         $ref: '#/components/schemas/currency'
+
+    start_time:
+      name: start_time
+      in: query
+      required: true
+      description: Time to start the search from.
+      schema:
+        $ref: '#/components/schemas/time'
         
+    end_time:
+      name: start_time
+      in: query
+      required: true
+      description: Time to end the search at.
+      schema:
+        $ref: '#/components/schemas/time'
+
+    max_results:
+      name: max_results
+      in: query
+      required: false
+      default: 5
+      description: Max results returned by the API call.
+      schema: 
+        $ref: '#/components/schemas/max_results'
+
+
   schemas:
     crypto_name:
       title: crypto_name
@@ -77,6 +126,15 @@ components:
       title: currency
       type: string
       example: EUR
+
+    time:
+      title: time
+      type: time
+
+    max_results:
+      title: max_results
+      type: integer
+      example: 10
 
   responses:
     NotFound:

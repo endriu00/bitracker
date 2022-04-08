@@ -2,8 +2,19 @@ import boto3
 
 DYNAMODB_URL = 'http://localhost:8000'
 
-def create_crypto_table(dynamodb=None):
-    table_name = 'CryptocurrencyPrice'
+def create_crypto_table(dynamodb=None) -> bool :
+    '''
+    `create_crypto_table` creates the table containing the cryptocurrency
+    prices in relation to the time.
+
+    ### Parameters:
+    - dynamodb: the dynamodb resource.
+
+    ### Returns:
+    - a boolean indicating whether the table has been created or not.
+    '''
+
+    table_name = 'CryptoTable'
     crypto_name = 'name'
     crypto_timestamp = 'timestamp'
 
@@ -13,22 +24,10 @@ def create_crypto_table(dynamodb=None):
 
     # Return in case the table already exists.
     if table_name in dynamodb.list_tables()['TableNames']:
-        print('The table was already created!')
-        return
+        return False
 
     table = dynamodb.create_table(
         TableName=table_name,
-        AttributeDefinitions=[
-            {
-                'AttributeName': crypto_name,
-                'AttributeType': 'S',
-
-            },
-            {
-                'AttributeName': crypto_timestamp,
-                'AttributeType': 'N',
-            }
-        ],
         KeySchema=[
             {
                 'AttributeName': crypto_name,
@@ -37,15 +36,41 @@ def create_crypto_table(dynamodb=None):
             {
                 'AttributeName': crypto_timestamp,
                 'KeyType': 'RANGE',  # Sort key
-            }
+            },
         ],
+        AttributeDefinitions=[
+            {
+                'AttributeName': crypto_name,
+                'AttributeType': 'S',
+
+            },
+            {
+                'AttributeName': crypto_timestamp,
+                'AttributeType': 'S',
+            },
+        ],
+
         ProvisionedThroughput={
             'ReadCapacityUnits': 10,
             'WriteCapacityUnits': 10,
         }
     )
+
+    return True
+
+
+def insert_sample_crypto():
+    '''
+    '''
+
+
+def main():
+    if not create_crypto_table():
+        print('The table was already created or an error has occurred!')
+        exit()
+
     print('Table created!')
 
 
 if __name__ == '__main__':
-    create_crypto_table()
+    main()

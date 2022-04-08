@@ -50,7 +50,7 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
     ### Returns:
     - The price of the crypto in the currency provided.
     '''
-    
+
     # headers represents headers to be sent.
     #   The header X-CMC_PRO_API_KEY represents the API key.
     headers = {CMC_API_HEADER: cmc_api_key}
@@ -95,6 +95,3 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
     )
     
     return price
-
-if __name__ == '__main__':
-    inspector('bitcoin', 'b32ecd6a-fb6a-4426-87e9-f9f1651e96bf')

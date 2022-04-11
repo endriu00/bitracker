@@ -8,6 +8,9 @@ def handler(event, context):
     `handler` handles the API Gateway request and returns a response to it.
     '''
     
+    # Initialize logging.
+    logging.basicConfig(level=logging.INFO)
+
     # Get path and query parameters from the API Gateway.
     crypto_name = event['pathParameters']['crypto_name']
     cmc_api_key = event['headers']['cmc_api_key'] 
@@ -67,9 +70,6 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
       it returns a negative number.
     '''
 
-    # Initialize logging.
-    logging.basicConfig(level=logging.INFO)
-
     # headers represents headers to be sent.
     #   The header X-CMC_PRO_API_KEY represents the API key.
     headers = {CMC_API_HEADER: cmc_api_key}
@@ -115,4 +115,3 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
     )
     
     return price
-

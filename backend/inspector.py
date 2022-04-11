@@ -13,6 +13,7 @@ def handler(event, context):
     currency = event['queryStringParameters']['currency']
 
     price = inspector(crypto_name=crypto_name, cmc_api_key=cmc_api_key, currency=currency)
+
     return {
         'statusCode': 200,
         'body': json.dumps(price),
@@ -76,7 +77,7 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
     # This is is always the first and only value of the dict key data.
     id  = [x for x in data['data'].keys()][0]
     price = data['data'][id]['quote'][currency]['price']
-
+    
     # Get the timestamp the price was updated at and convert it to a datetime 
     # representation to store more efficiently in the Database.
     last_updated = data['data'][id]['last_updated']
@@ -95,3 +96,4 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
     )
     
     return price
+

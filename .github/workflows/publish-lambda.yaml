@@ -2,7 +2,7 @@ name: Publish Bitracker
 
 on:
   push: 
-    branches: ['main']
+    branches: ['devel']
     paths-ignore:
       - "README.md"
       
@@ -39,8 +39,8 @@ jobs:
         aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: ${{ secrets.AWS_REGION }}
-        function_name: $LAMBDA_NAME
-        zip_file: './$ZIP_FILE'   
+        function_name: bitracker_inspector
+        zip_file: './bitracker-inspector.zip'   
 
   deploy-historical-price-lambda:
     runs-on: ubuntu-latest
@@ -72,4 +72,4 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_region: ${{ secrets.AWS_REGION }}
         function_name: bitracker_get_historical_price
-        zip_file: './$ZIP_FILE'   
+        zip_file: './bitracker-get-historical-price.zip'   

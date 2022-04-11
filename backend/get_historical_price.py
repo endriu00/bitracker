@@ -1,5 +1,6 @@
 import math
 import json
+import logging
 
 import boto3
 from boto3.dynamodb.conditions import Key
@@ -10,12 +11,17 @@ def handler(event, context):
     `handler` handles the API Gateway request and returns a response to it.
     '''
     
+    # Initialize logging.
+    logging.basicConfig(level=logging.INFO)
+
     # Get path and query parameters from the API Gateway.
     crypto_name = event['pathParameters']['crypto_name']
     start = event['queryStringParameters']['start']
     end = event['queryStringParameters']['end']
-    spread = event['queryStringParameters']['spread']
-    max_results = event['queryStringParameters']['max_results']
+    spread = True if event['queryStringParameters']['spread'].upper() is 'TRUE' else False
+    max_results = int(event['queryStringParameters']['max_results'])
+
+    print(event)
 
     prices = get_historical_price(
         crypto_name=crypto_name, 

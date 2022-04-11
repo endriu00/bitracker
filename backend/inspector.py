@@ -16,11 +16,8 @@ def handler(event, context):
     cmc_api_key = event['headers']['cmc_api_key'] 
     currency = event['queryStringParameters']['currency']
 
-    logging.info(currency)
-
     price = inspector(crypto_name=crypto_name, cmc_api_key=cmc_api_key, currency=currency)
 
-    logging.info(price)
     if price < 0:
         return {
             'statusCode': 404,
@@ -89,7 +86,6 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
 
     # extract data.
     data = r.json()
-    print(data)
 
     # the API endpoint returns the important data as the value of a numeric key,
     # that is the crypto key as stored in CMC databases. In order to access 

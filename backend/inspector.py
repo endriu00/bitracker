@@ -89,6 +89,7 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
 
     # extract data.
     data = r.json()
+    print(data)
 
     # the API endpoint returns the important data as the value of a numeric key,
     # that is the crypto key as stored in CMC databases. In order to access 

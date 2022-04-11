@@ -1,3 +1,4 @@
+import logging
 import requests
 import json
 import boto3
@@ -12,8 +13,21 @@ def handler(event, context):
     cmc_api_key = event['headers']['cmc_api_key'] 
     currency = event['queryStringParameters']['currency']
 
+    logging.info(currency)
+
     price = inspector(crypto_name=crypto_name, cmc_api_key=cmc_api_key, currency=currency)
 
+    logging.info(price)
+    if price < 0:
+        return {
+            'statusCode': 404,
+            'body': json.dumps(
+                {
+                    'message': 'The crypto you requested could not be found.'
+                }
+            )
+        }
+    
     return {
         'statusCode': 200,
         'body': json.dumps(price),
@@ -49,8 +63,12 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
     - currency: the value of the crypto will refer to this currency.
     
     ### Returns:
-    - The price of the crypto in the currency provided.
+    - The price of the crypto in the currency provided. If no crypto were found
+      it returns a negative number.
     '''
+
+    # Initialize logging.
+    logging.basicConfig(level=logging.INFO)
 
     # headers represents headers to be sent.
     #   The header X-CMC_PRO_API_KEY represents the API key.
@@ -66,7 +84,8 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
 
     # NOTE: CMC API returns a 400: Bad Request when there is no resource.
     if r.status_code == SC_BAD_REQUEST:
-        exit('Not found')
+        logging.error('Could not find the requested crypto.')
+        return -1
 
     # extract data.
     data = r.json()

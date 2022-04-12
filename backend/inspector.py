@@ -51,7 +51,7 @@ SC_BAD_REQUEST = 400
 # Database tables.
 CRYPTO_TABLE = 'CryptoTable'
 
-def inspector(crypto_name,  cmc_api_key, currency='EUR'):
+def inspector(crypto_name: str,  cmc_api_key: str, currency: str = 'EUR'):
     '''
     `inspector` crawls `crypto_name` price data from CoinMarketCap, using 
     cmc_api_key to access it. The returned price refers to its price in
@@ -66,6 +66,9 @@ def inspector(crypto_name,  cmc_api_key, currency='EUR'):
     - The price of the crypto in the currency provided. If no crypto were found
       it returns a negative number.
     '''
+
+    # It is better to store crypto names as lowecase.
+    crypto_name = crypto_name.lower()
 
     # headers represents headers to be sent.
     #   The header X-CMC_PRO_API_KEY represents the API key.

@@ -67,6 +67,9 @@ def get_historical_price(crypto_name: str, start: str, end: str, spread: bool = 
     - A dictionary containing the latest prices, along with the timestamp. 
     ''' 
 
+    # Crypto are stored in lowercase.
+    crypto_name = crypto_name.lower()
+
     dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
     table = dynamodb.Table(CRYPTO_TABLE)
 
@@ -84,7 +87,7 @@ def get_historical_price(crypto_name: str, start: str, end: str, spread: bool = 
                 Key('timestamp').between(start, end),
             Limit=max_results
         )
-        prices = [{'name': crypto_name, 'price': price['price']} 
+        prices = [{'name': crypto_name, 'price': price['price'], 'timestamp': price['timestamp']} 
                     for price in raw_prices['Items']]
         return prices
 

@@ -107,7 +107,7 @@ def inspector(crypto_name: str,  cmc_api_key: str, currency: str = 'EUR'):
     table = dynamodb.Table(CRYPTO_TABLE)
 
     # Put the information together to store them in the Database.
-    crypto_row = {'name': crypto_name, 'price': str(price), 'timestamp': last_updated}
+    crypto_row = {'name': crypto_name, 'price': str(price), 'timestamp': last_updated, 'test': 'test_value'}
 
     # Insert the crypto price at its timestamp in the Database.
     response = table.put_item(

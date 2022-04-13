@@ -73,4 +73,4 @@ jobs:
         aws_region: ${{ secrets.AWS_REGION }}
         function_name: bitracker_get_historical_price
         zip_file: './bitracker-get-historical-price.zip'   
-        reversion_id: '$LATEST'
+        reversion_id: '9'

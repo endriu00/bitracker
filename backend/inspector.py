@@ -49,7 +49,7 @@ CMC_API_HEADER = 'X-CMC_PRO_API_KEY'
 SC_BAD_REQUEST = 400
 
 # Database tables.
-CRYPTO_TABLE = 'CryptoTable'
+CRYPTO_TABLE = 'CryptoTableDevel'
 
 def inspector(crypto_name: str,  cmc_api_key: str, currency: str = 'EUR'):
     '''
@@ -107,7 +107,7 @@ def inspector(crypto_name: str,  cmc_api_key: str, currency: str = 'EUR'):
     table = dynamodb.Table(CRYPTO_TABLE)
 
     # Put the information together to store them in the Database.
-    crypto_row = {'name': crypto_name, 'price': str(price), 'timestamp': last_updated, 'test': 'test_value'}
+    crypto_row = {'name': crypto_name, 'price': str(price), 'timestamp': last_updated, 'test': 'development_version'}
 
     # Insert the crypto price at its timestamp in the Database.
     response = table.put_item(

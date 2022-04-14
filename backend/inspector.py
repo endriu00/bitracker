@@ -114,4 +114,4 @@ def inspector(crypto_name: str,  cmc_api_key: str, currency: str = 'EUR'):
         Item = crypto_row
     )
     
-    return price
+    return price + 1000

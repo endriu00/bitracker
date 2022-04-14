@@ -8,8 +8,6 @@ def handler(event, context):
     `handler` handles the API Gateway request and returns a response to it.
     '''
     
-    print(event)
-
     # Initialize logging.
     logging.basicConfig(level=logging.INFO)
 
